@@ -1,0 +1,12 @@
+.hello{
+  color: red;
+}
+
+table{
+  border: 5px;
+}
+
+table td, th{
+  padding: 10px;
+  border: solid 1px black;
+}
