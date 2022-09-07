@@ -9,4 +9,11 @@ const accountSchema= mongoose.Schema({
   password: String
 })
 
+// accountSchema.set("toJSON", {
+//   transform: function(doc, ret, option){
+//     delete ret.password
+//     return ret
+//   }
+// })
+
 module.exports= mongoose.model("account", accountSchema)

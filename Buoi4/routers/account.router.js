@@ -1,6 +1,7 @@
 const express= require("express")
 const router= express.Router()
-
+const testMiddleware= require("../middlewares/test.middleware")
+const asyncMiddleware= require("../middlewares/async.middleware")
 const {
   getFormLogin,
   login,
@@ -10,7 +11,10 @@ const {
 
 router
   .route("/")
-  .get(getAll)
+  .get(
+    asyncMiddleware(testMiddleware),
+    asyncMiddleware(getAll)
+  )
 
 router
   .route("/login")

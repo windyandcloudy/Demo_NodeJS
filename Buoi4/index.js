@@ -14,6 +14,7 @@ app.use(express.static('./public'))
 connectDB()
 router(app)
 
+//middleware
 
 app.listen(3000, ()=>{
   console.log("Server run at port 3000")
