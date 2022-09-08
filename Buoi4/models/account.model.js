@@ -1,4 +1,5 @@
 const mongoose= require("mongoose")
+const bcryptjs= require("bcryptjs")
 
 const accountSchema= mongoose.Schema({
   username: {
@@ -6,7 +7,11 @@ const accountSchema= mongoose.Schema({
     required: true,
     unique: true
   },
-  password: String
+  password: String,
+  role: {
+    type: String,
+    default: "user"
+  }
 })
 
 // accountSchema.set("toJSON", {
@@ -15,5 +20,23 @@ const accountSchema= mongoose.Schema({
 //     return ret
 //   }
 // })
+
+accountSchema.pre("save", function(next){
+  const account= this;
+  if (account.password){
+    account.password= bcryptjs.hashSync(account.password, 10)
+  }
+  next();
+})
+
+accountSchema.pre("findOneAndUpdate", function(next){
+  const account= {...this.getUpdate()}
+  if (account.password){
+    account.password= bcryptjs.hashSync(account.password, 10)
+  }
+   
+  this.setUpdate(account)
+  next()
+})
 
 module.exports= mongoose.model("account", accountSchema)
