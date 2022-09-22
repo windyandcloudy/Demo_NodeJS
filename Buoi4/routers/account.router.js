@@ -6,14 +6,26 @@ const {
   getFormLogin,
   login,
   logup,
-  getAll
+  getAll,
+  changePassword,
+  forgotPassword,
+  changePasswordByOtp
 }= require("../controllers/account.controller")
+
+const authMiddleware = require("../middlewares/auth.middleware")
 
 router
   .route("/")
   .get(
     asyncMiddleware(testMiddleware),
     asyncMiddleware(getAll)
+  )
+  .patch(
+    asyncMiddleware(authMiddleware),
+    asyncMiddleware(changePassword)
+  )
+  .post(
+    asyncMiddleware(forgotPassword)
   )
 
 router
@@ -25,4 +37,9 @@ router
   .route("/logup")
   .post(logup)
 
+router
+  .route("/confirmotp")
+  .patch(
+    asyncMiddleware(changePasswordByOtp)
+  )
 module.exports= router

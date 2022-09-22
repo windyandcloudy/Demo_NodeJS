@@ -7,11 +7,18 @@ const accountSchema= mongoose.Schema({
     required: true,
     unique: true
   },
+  otp: {
+    type: String
+  },
+  time_create_otp: {
+    type: String
+  },
   password: String,
   role: {
     type: String,
     default: "user"
-  }
+  },
+  email: String
 })
 
 // accountSchema.set("toJSON", {

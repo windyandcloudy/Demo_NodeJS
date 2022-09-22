@@ -11,7 +11,7 @@ module.exports= async(req, res, next)=>{
   }
   const token= authorization.split(" ")[1];
   const decode= jwt.verify(token, "abcxyz");
-  const account= await accountModel.findById(decode._id);
+  const account= await accountModel.findById(decode._id); 
   if (!account){
     throw new ErrorResponse(403, "Unauthorized")
   }
